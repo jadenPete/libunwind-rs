@@ -20,3 +20,10 @@ foreign-types = "0.5.0"
 num-traits = "0.2"
 num-derive = "0.3"
 libunwind-sys = "0.5.1"
+
+# For some reason, the version of `libunwind-sys` on crates.io depends on v0.52.0 of `bindgen`,
+# despite the version on GitHub depending on v0.64.0. `bindgen` v0.52.0 spits out errors like these,
+# so we need to use a newer version of it:
+# https://github.com/oxidize-rb/rb-sys/issues/204
+[patch.crates-io]
+libunwind-sys = { git = "https://github.com/anfedotoff/libunwind-sys", branch = "master" }

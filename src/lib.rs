@@ -344,6 +344,21 @@ impl Cursor {
             }
         }
     }
+    
+    /// Method sets register value
+    /// # Arguments
+    ///
+    /// * `id`     - register's identifier
+    /// * `value`  - new value
+    pub fn set_register(&mut self, id: i32, value: usize) -> Result<(), Error> {
+        let error_code = unsafe { unw_set_reg(&self.0 as *const _ as *mut _, id, value as u64) };
+
+        if error_code == (Error::Succsess as i32) {
+            Ok(())
+        } else {
+            Err(FromPrimitive::from_i32(error_code).unwrap())
+        }
+    }
 
     /// Method returns instructions pointer value
     pub fn ip(&mut self) ->  Result<usize, Error> {
